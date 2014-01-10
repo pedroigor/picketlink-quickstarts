@@ -21,7 +21,7 @@
 
   <groupId>org.picketlink.quickstarts</groupId>
   <artifactId>picketlink-authorization-idm-jpa</artifactId>
-  <version>2.5.3-SNAPSHOT</version>
+  <version>2.5.3.Beta1</version>
 
   <packaging>war</packaging>
 
@@ -43,7 +43,7 @@
     <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
 
     <!-- PicketLink dependency versions -->
-    <version.picketlink.javaee.bom>2.5.3-SNAPSHOT</version.picketlink.javaee.bom>
+    <version.picketlink.javaee.bom>2.5.3.Beta1</version.picketlink.javaee.bom>
 
     <!-- maven-war-plugin -->
     <version.war.plugin>2.1.1</version.war.plugin>
@@ -69,7 +69,7 @@
 
   <dependencies>
 
-    <!-- Import the EJB API, we use provided scope as the API is included in 
+    <!-- Import the EJB API, we use provided scope as the API is included in
       JBoss AS 7 -->
     <dependency>
       <groupId>org.jboss.spec.javax.ejb</groupId>
@@ -77,7 +77,7 @@
       <scope>provided</scope>
     </dependency>
 
-    <!-- Import the CDI API, we use provided scope as the API is included in 
+    <!-- Import the CDI API, we use provided scope as the API is included in
       JBoss AS 7 -->
     <dependency>
       <groupId>javax.enterprise</groupId>
@@ -85,7 +85,7 @@
       <scope>provided</scope>
     </dependency>
 
-    <!-- Import the Common Annotations API (JSR-250), we use provided scope 
+    <!-- Import the Common Annotations API (JSR-250), we use provided scope
       as the API is included in JBoss AS 7 -->
     <dependency>
       <groupId>org.jboss.spec.javax.annotation</groupId>
@@ -99,6 +99,19 @@
       <groupId>org.jboss.spec.javax.faces</groupId>
       <artifactId>jboss-jsf-api_2.1_spec</artifactId>
       <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jboss.spec.javax.transaction</groupId>
+      <artifactId>jboss-transaction-api_1.1_spec</artifactId>
+      <version>1.0.1.Final</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jboss.logging</groupId>
+      <artifactId>jboss-logging</artifactId>
+      <version>3.1.4.GA</version>
     </dependency>
 
     <!-- Import the JPA API, we use provided scope as the API is included in
