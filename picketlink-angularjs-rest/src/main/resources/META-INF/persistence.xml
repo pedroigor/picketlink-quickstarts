@@ -20,6 +20,10 @@
         <class>org.jboss.as.quickstarts.picketlink.angularjs.model.Person</class>
 
         <class>org.jboss.as.quickstarts.picketlink.angularjs.security.model.entity.MyUserTypeEntity</class>
+        <class>org.jboss.as.quickstarts.picketlink.angularjs.security.model.entity.CertificateRevocationTypeEntity</class>
+        <class>org.jboss.as.quickstarts.picketlink.angularjs.security.model.entity.CertificateTypeEntity</class>
+        <class>org.jboss.as.quickstarts.picketlink.angularjs.security.model.entity.PrivateKeyTypeEntity</class>
+        <class>org.jboss.as.quickstarts.picketlink.angularjs.security.model.entity.PublicKeyTypeEntity</class>
         <class>org.picketlink.idm.jpa.model.sample.simple.AttributedTypeEntity</class>
 		<class>org.picketlink.idm.jpa.model.sample.simple.RoleTypeEntity</class>
 		<class>org.picketlink.idm.jpa.model.sample.simple.GroupTypeEntity</class>
@@ -30,7 +34,7 @@
 		<class>org.picketlink.idm.jpa.model.sample.simple.AttributeTypeEntity</class>
 		<class>org.picketlink.idm.jpa.model.sample.simple.PasswordCredentialTypeEntity</class>
         <class>org.picketlink.idm.jpa.model.sample.simple.TokenCredentialTypeEntity</class>
-		
+
 		<properties>
 			<!-- Properties for Hibernate -->
 			<property name="hibernate.hbm2ddl.auto" value="create-drop" />

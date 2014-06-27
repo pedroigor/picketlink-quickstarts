@@ -93,6 +93,18 @@
         <scope>compile</scope>
     </dependency>
 
+    <dependency>
+        <groupId>org.picketlink</groupId>
+        <artifactId>picketlink-pki-api</artifactId>
+        <version>2.7.0-SNAPSHOT</version>
+    </dependency>
+
+    <dependency>
+        <groupId>org.picketlink</groupId>
+        <artifactId>picketlink-pki-impl</artifactId>
+        <version>2.7.0-SNAPSHOT</version>
+    </dependency>
+
     <!--
          PicketLink Simple Schema for IDM JPA Identity Store. This is just a simple and specific schema that maps all types provided
          by PicketLink IDM Basic Model. Eg.: User, Role and Group types.

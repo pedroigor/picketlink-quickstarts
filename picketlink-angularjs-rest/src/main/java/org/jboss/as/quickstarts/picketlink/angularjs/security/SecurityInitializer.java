@@ -29,16 +29,11 @@ import org.picketlink.idm.IdentityManager;
 import org.picketlink.idm.PartitionManager;
 import org.picketlink.idm.config.SecurityConfigurationException;
 import org.picketlink.idm.credential.Password;
-import org.picketlink.idm.model.Attribute;
 import org.picketlink.idm.model.basic.Realm;
 import org.picketlink.idm.model.basic.Role;
 
 import javax.ejb.Stateless;
 import javax.enterprise.event.Observes;
-import java.security.KeyStore;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.security.UnrecoverableKeyException;
 
 import static org.jboss.as.quickstarts.picketlink.angularjs.security.model.IdentityModelUtils.findByLoginName;
 import static org.picketlink.idm.model.basic.BasicModel.getRole;
@@ -49,10 +44,6 @@ import static org.picketlink.idm.model.basic.BasicModel.grantRole;
  */
 @Stateless
 public class SecurityInitializer {
-
-    public static final String KEYSTORE_FILE_PATH = "/keystore.jks";
-
-    private KeyStore keyStore;
 
     public void configureDefaultPartition(@Observes PartitionManagerCreateEvent event) {
         PartitionManager partitionManager = event.getPartitionManager();
@@ -75,10 +66,6 @@ public class SecurityInitializer {
         if (partition == null) {
             try {
                 partition = new Realm(Realm.DEFAULT_REALM);
-
-                partition.setAttribute(new Attribute<byte[]>("PublicKey", getPublicKey()));
-                partition.setAttribute(new Attribute<byte[]>("PrivateKey", getPrivateKey()));
-
                 partitionManager.add(partition);
             } catch (Exception e) {
                 throw new SecurityConfigurationException("Could not create default partition.", e);
@@ -95,27 +82,6 @@ public class SecurityInitializer {
         }
 
         return role;
-    }
-
-    private byte[] getPrivateKey() throws KeyStoreException, NoSuchAlgorithmException, UnrecoverableKeyException {
-        return getKeyStore().getKey("servercert", "test123".toCharArray()).getEncoded();
-    }
-
-    private byte[] getPublicKey() throws KeyStoreException {
-        return getKeyStore().getCertificate("servercert").getPublicKey().getEncoded();
-    }
-
-    private KeyStore getKeyStore() {
-        if (this.keyStore == null) {
-            try {
-                this.keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
-                getKeyStore().load(getClass().getResourceAsStream(KEYSTORE_FILE_PATH), "store123".toCharArray());
-            } catch (Exception e) {
-                throw new SecurityException("Could not load key store.", e);
-            }
-        }
-
-        return this.keyStore;
     }
 
     public void createAdminAccount(PartitionManager partitionManager) {

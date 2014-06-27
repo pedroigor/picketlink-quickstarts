@@ -23,7 +23,11 @@ package org.jboss.as.quickstarts.picketlink.angularjs.security;
 
 import org.jboss.as.quickstarts.picketlink.angularjs.security.authentication.JWSTokenProvider;
 import org.jboss.as.quickstarts.picketlink.angularjs.security.model.MyUser;
+import org.jboss.as.quickstarts.picketlink.angularjs.security.model.entity.CertificateRevocationTypeEntity;
+import org.jboss.as.quickstarts.picketlink.angularjs.security.model.entity.CertificateTypeEntity;
 import org.jboss.as.quickstarts.picketlink.angularjs.security.model.entity.MyUserTypeEntity;
+import org.jboss.as.quickstarts.picketlink.angularjs.security.model.entity.PrivateKeyTypeEntity;
+import org.jboss.as.quickstarts.picketlink.angularjs.security.model.entity.PublicKeyTypeEntity;
 import org.picketlink.annotations.PicketLink;
 import org.picketlink.authentication.web.TokenAuthenticationScheme;
 import org.picketlink.config.SecurityConfigurationBuilder;
@@ -39,6 +43,10 @@ import org.picketlink.idm.jpa.model.sample.simple.RelationshipTypeEntity;
 import org.picketlink.idm.jpa.model.sample.simple.RoleTypeEntity;
 import org.picketlink.idm.jpa.model.sample.simple.TokenCredentialTypeEntity;
 import org.picketlink.internal.EEJPAContextInitializer;
+import org.picketlink.pki.model.Certificate;
+import org.picketlink.pki.model.CertificateRevocationList;
+import org.picketlink.pki.model.PrivateKeyType;
+import org.picketlink.pki.model.PublicKeyType;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
@@ -88,10 +96,19 @@ public class SecurityConfiguration {
                 PasswordCredentialTypeEntity.class,
                 TokenCredentialTypeEntity.class,
                 AttributeTypeEntity.class,
-                MyUserTypeEntity.class)
+                MyUserTypeEntity.class,
+                CertificateRevocationTypeEntity.class,
+                CertificateTypeEntity.class,
+                PrivateKeyTypeEntity.class,
+                PublicKeyTypeEntity.class)
             .addContextInitializer(this.contextInitializer)
             .setCredentialHandlerProperty(TokenCredentialHandler.TOKEN_PROVIDER, this.tokenProvider)
-            .supportType(MyUser.class)
+            .supportType(
+                MyUser.class,
+                PrivateKeyType.class,
+                PublicKeyType.class,
+                Certificate.class,
+                CertificateRevocationList.class)
             .supportAllFeatures();
     }
 }

@@ -24,15 +24,14 @@ package org.jboss.as.quickstarts.picketlink.angularjs.security.authentication;
 import org.jboss.as.quickstarts.picketlink.angularjs.security.model.MyUser;
 import org.picketlink.authentication.AuthenticationException;
 import org.picketlink.idm.IdentityManager;
-import org.picketlink.idm.PartitionManager;
 import org.picketlink.idm.credential.Token;
 import org.picketlink.idm.credential.storage.TokenCredentialStorage;
 import org.picketlink.idm.model.Account;
-import org.picketlink.idm.model.basic.Realm;
 import org.picketlink.idm.query.IdentityQuery;
 import org.picketlink.json.JsonException;
 import org.picketlink.json.jose.JWS;
 import org.picketlink.json.jose.JWSBuilder;
+import org.picketlink.pki.cert.CertificateAuthority;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -49,7 +48,7 @@ import java.util.UUID;
 public class JWSTokenProvider implements Token.Provider {
 
     @Inject
-    private PartitionManager partitionManager;
+    private CertificateAuthority certificateAuthority;
 
     @Inject
     private IdentityManager identityManager;
@@ -163,19 +162,15 @@ public class JWSTokenProvider implements Token.Provider {
         return null;
     }
 
-    private byte[] getPublicKey() {
-        return getPartition().<byte[]>getAttribute("PublicKey").getValue();
-    }
-
-    private byte[] getPrivateKey() {
-        return getPartition().<byte[]>getAttribute("PrivateKey").getValue();
-    }
-
     private int getCurrentTime() {
         return (int) (System.currentTimeMillis() / 1000);
     }
 
-    private Realm getPartition() {
-        return partitionManager.getPartition(Realm.class, Realm.DEFAULT_REALM);
+    public byte[] getPublicKey() {
+        return this.certificateAuthority.getKeyPair().getPublic().getEncoded();
+    }
+
+    public byte[] getPrivateKey() {
+        return this.certificateAuthority.getKeyPair().getPrivate().getEncoded();
     }
 }
