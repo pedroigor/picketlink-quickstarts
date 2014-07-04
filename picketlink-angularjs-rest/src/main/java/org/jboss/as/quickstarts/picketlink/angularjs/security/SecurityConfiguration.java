@@ -43,8 +43,8 @@ import org.picketlink.idm.jpa.model.sample.simple.RelationshipTypeEntity;
 import org.picketlink.idm.jpa.model.sample.simple.RoleTypeEntity;
 import org.picketlink.idm.jpa.model.sample.simple.TokenCredentialTypeEntity;
 import org.picketlink.internal.EEJPAContextInitializer;
-import org.picketlink.pki.model.Certificate;
-import org.picketlink.pki.model.CertificateRevocationList;
+import org.picketlink.pki.model.CertificateRevocationListType;
+import org.picketlink.pki.model.CertificateType;
 import org.picketlink.pki.model.PrivateKeyType;
 import org.picketlink.pki.model.PublicKeyType;
 
@@ -107,8 +107,8 @@ public class SecurityConfiguration {
                 MyUser.class,
                 PrivateKeyType.class,
                 PublicKeyType.class,
-                Certificate.class,
-                CertificateRevocationList.class)
+                CertificateType.class,
+                CertificateRevocationListType.class)
             .supportAllFeatures();
     }
 }

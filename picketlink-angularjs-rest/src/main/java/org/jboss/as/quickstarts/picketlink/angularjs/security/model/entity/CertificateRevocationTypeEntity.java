@@ -24,7 +24,7 @@ package org.jboss.as.quickstarts.picketlink.angularjs.security.model.entity;
 import org.picketlink.idm.jpa.annotations.AttributeValue;
 import org.picketlink.idm.jpa.annotations.entity.IdentityManaged;
 import org.picketlink.idm.jpa.model.sample.simple.IdentityTypeEntity;
-import org.picketlink.pki.model.CertificateRevocationList;
+import org.picketlink.pki.model.CertificateRevocationListType;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -33,7 +33,7 @@ import javax.persistence.Entity;
  * @author Pedro Igor
  */
 @Entity
-@IdentityManaged(CertificateRevocationList.class)
+@IdentityManaged(CertificateRevocationListType.class)
 public class CertificateRevocationTypeEntity extends IdentityTypeEntity {
 
     @AttributeValue

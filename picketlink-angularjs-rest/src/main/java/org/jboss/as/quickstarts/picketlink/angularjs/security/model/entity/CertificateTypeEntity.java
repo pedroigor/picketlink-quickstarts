@@ -25,7 +25,7 @@ import org.picketlink.idm.jpa.annotations.AttributeValue;
 import org.picketlink.idm.jpa.annotations.entity.IdentityManaged;
 import org.picketlink.idm.jpa.model.sample.simple.IdentityTypeEntity;
 import org.picketlink.idm.model.annotation.Unique;
-import org.picketlink.pki.model.Certificate;
+import org.picketlink.pki.model.CertificateType;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -34,7 +34,7 @@ import javax.persistence.Entity;
  * @author Pedro Igor
  */
 @Entity
-@IdentityManaged(Certificate.class)
+@IdentityManaged(CertificateType.class)
 public class CertificateTypeEntity extends IdentityTypeEntity {
 
     @AttributeValue
@@ -47,6 +47,21 @@ public class CertificateTypeEntity extends IdentityTypeEntity {
     @AttributeValue
     @Column(columnDefinition = "TEXT")
     private String encoded;
+
+    @AttributeValue
+    private String keyAlgorithm;
+
+    @AttributeValue
+    private String signatureAlgorithm;
+
+    @AttributeValue
+    private Integer certificateValidity;
+
+    @AttributeValue
+    private Integer keyLength;
+
+    @AttributeValue
+    private String baseDN;
 
     public String getAttributedTypeId() {
         return attributedTypeId;
@@ -70,5 +85,45 @@ public class CertificateTypeEntity extends IdentityTypeEntity {
 
     public void setEncoded(String encoded) {
         this.encoded = encoded;
+    }
+
+    public String getKeyAlgorithm() {
+        return this.keyAlgorithm;
+    }
+
+    public void setKeyAlgorithm(String keyAlgorithm) {
+        this.keyAlgorithm = keyAlgorithm;
+    }
+
+    public String getSignatureAlgorithm() {
+        return this.signatureAlgorithm;
+    }
+
+    public void setSignatureAlgorithm(String signatureAlgorithm) {
+        this.signatureAlgorithm = signatureAlgorithm;
+    }
+
+    public Integer getCertificateValidity() {
+        return this.certificateValidity;
+    }
+
+    public void setCertificateValidity(Integer certificateValidity) {
+        this.certificateValidity = certificateValidity;
+    }
+
+    public Integer getKeyLength() {
+        return this.keyLength;
+    }
+
+    public void setKeyLength(Integer keyLength) {
+        this.keyLength = keyLength;
+    }
+
+    public String getBaseDN() {
+        return this.baseDN;
+    }
+
+    public void setBaseDN(String baseDN) {
+        this.baseDN = baseDN;
     }
 }

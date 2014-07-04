@@ -60,14 +60,16 @@ public class JWSTokenProvider implements Token.Provider {
     public Account getAccount(Token token) {
         JWS jws = unMarshall(token);
 
-        IdentityQuery<MyUser> query = this.identityManager.createIdentityQuery(MyUser.class);
+        if (jws != null) {
+            IdentityQuery<MyUser> query = this.identityManager.createIdentityQuery(MyUser.class);
 
-        query.setParameter(MyUser.ID, jws.getSubject());
+            query.setParameter(MyUser.ID, jws.getSubject());
 
-        List<MyUser> result = query.getResultList();
+            List<MyUser> result = query.getResultList();
 
-        if (!result.isEmpty()) {
-            return result.get(0);
+            if (!result.isEmpty()) {
+                return result.get(0);
+            }
         }
 
         return null;
@@ -145,7 +147,7 @@ public class JWSTokenProvider implements Token.Provider {
 
     @Override
     public boolean supports(Token token) {
-        return unMarshall(token) != null;
+        return Token.class.equals(token.getClass());
     }
 
     @Override
