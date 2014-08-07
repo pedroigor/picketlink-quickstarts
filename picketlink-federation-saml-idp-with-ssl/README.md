@@ -127,7 +127,7 @@ for *JBoss Enterprise Application Platform 6* add the following connector in the
             ca-certificate-file="${jboss.server.config.dir}/client.truststore"/>
     </connector>
 
-for *WildFly*, add a security-realm, then a https listener in the undertow subsystem:
+for *WildFly*, add a security-realm
   
     <security-realm name="UndertowRealm">
         <server-identities>
@@ -139,6 +139,8 @@ for *WildFly*, add a security-realm, then a https listener in the undertow subsy
             <truststore path="client.truststore" relative-to="jboss.server.config.dir" keystore-password="change_it"/>
         </authentication>
     </security-realm>
+
+then a https listener in the undertow subsystem:
 
     <https-listener name="https" socket-binding="https" security-realm="UndertowRealm" verify-client="REQUIRED"/>
 
@@ -265,7 +267,7 @@ _NOTE: The following build command assumes you have configured your Maven user s
 Access the application
 ---------------------
 
-The application will be running at the following URL: <http://localhost:8080/idp-ssl>.
+The application will be running at the following URL: <https://localhost:8443/idp-ssl>.
 
 The IdP is pre-configured with a default user, whose credentials are:
 
