@@ -166,7 +166,7 @@ _NOTE: The following build command assumes you have configured your Maven user s
 Access the application
 ---------------------
 
-The application will be running at the following URL: <http://localhost:8080/sales-post-sig>.
+The application will be running at the following URL: <https://localhost:8443/sales-post-ssl>.
 
 *Note: A Service Provider alone is not very useful without an Identity Provider to authenticate users and issue SAML Assertions. Once you get this application deployed, please take a look at [About the PicketLink Federation Quickstarts](../README.md#about-the-picketlink-federation-quickstarts).*
 

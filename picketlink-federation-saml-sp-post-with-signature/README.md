@@ -15,7 +15,7 @@ This example demonstrates the use of *PicketLink Federation* SAML v2.0 support t
 It provides a minimal configuration to enable your application as a Service Provider, accordingly with the SAML v2.0 specification. A Service Provider is an application that participates in a Single Sign-On as a relying party.
 It relies on the Identity Provider to authenticate users and issue SAML Assertions, which will be used by the Service Provider to authenticate the user locally.
 
-Although this example provides you a good start to understand how a Service Provider works, it does not provide some other important security-related configurations such as signature and encryption.
+Although this example provides you a good start to understand how a Service Provider works, it does not provide some other important security-related configurations such encryption.
 We strongly recommend you to read our documentation about how to make your deployment safe and secure from a SAML perspective.
 
 Before you run this example, you must have a security-domain configuration in your server to authenticate users based on the SAML Assertion issued by the Identity Provider.

@@ -17,6 +17,7 @@
 			<Auth Key="SigningKeyAlias" Value="servercert" />
 			<Auth Key="salt" Value="18273645" />
 			<Auth Key="iterationCount" Value="11" />
+            <!-- Below should be SP(s) servers certificates imported in the IdP truststore -->
 			<ValidatingAlias Key="localhost" Value="servercert" />
 			<ValidatingAlias Key="127.0.0.1" Value="servercert" />
 		</KeyProvider>

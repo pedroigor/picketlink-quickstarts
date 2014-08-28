@@ -46,69 +46,12 @@ Configure Maven
 
 If you have not yet done so, you must [Configure Maven](http://www.jboss.org/jdf/quickstarts/jboss-as-quickstart/#configure_maven) before testing the quickstarts.
 
-Create the Security Domain
----------------
-
-These steps assume you are running the server in standalone mode and using the default standalone.xml supplied with the distribution.
-
-You configure the security domain by running JBoss CLI commands. For your convenience, this quickstart batches the commands into a `configure-security-domain.cli` script provided in the root directory of this quickstart.
-
-1. Before you begin, back up your server configuration file
-    * If it is running, stop the JBoss server.
-    * Backup the file: `JBOSS_HOME/standalone/configuration/standalone.xml`
-    * After you have completed testing this quickstart, you can replace this file to restore the server to its original configuration.
-
-2. Start the JBoss server by typing the following:
-
-        For Linux:  JBOSS_HOME/bin/standalone.sh
-        For Windows:  JBOSS_HOME\bin\standalone.bat
-3. Review the `configure-security-domain.cli` file in the root of this quickstart directory. This script adds the `idp` domain to the `security` subsystem in the server configuration and configures authentication access. Comments in the script describe the purpose of each block of commands.
-
-4. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server:
-
-        JBOSS_HOME/bin/jboss-cli.sh --connect --file=configure-security-domain.cli
-You should see the following result when you run the script:
-
-        The batch executed successfully
-        {
-            "outcome" => "success",
-        }
-
-
-
-Review the Modified Server Configuration
------------------------------------
-
-If you want to review and understand newly added XML configuration, stop the JBoss server and open the  `JBOSS_HOME/standalone/configuration/standalone.xml` file.
-
-The following `idp` security-domain was added to the `security` subsystem.
-
-        <security-domain name="idp" cache-type="default">
-            <authentication>
-                <login-module code="CertificateRoles" flag="optional">
-                    <module-option name="password-stacking" value="useFirstPass"/>
-                    <module-option name="securityDomain" value="idp"/>
-                    <module-option name="verifier" value="org.jboss.security.auth.certs.AnyCertVerifier"/>
-                </login-module>
-                <login-module code="UsersRoles" flag="required">
-                    <module-option name="password-stacking" value="useFirstPass"/>
-                    <module-option name="usersProperties" value="users.properties"/>
-                    <module-option name="rolesProperties" value="roles.properties"/>
-                </login-module>
-            </authentication>
-            <jsse keystore-password="change_it" keystore-url="jboss.server.config.dir/server.keystore" truststore-password="change_it" truststore-url="jboss.server.config.dir/server.keystore" client-auth="true"/>
-        </security-domain>
-
-The configuration above defines a security-domain which will be used by the IdP to authenticate users. This is a very simple configuration,
-using a JAAS LoginModule that reads users and their corresponding roles from properties files. Both properties files, *users.properties*
-and *roles.properties* are located at *src/main/resources* directory.
-
-In a real world scenario your users and roles will not be located in properties files, but in LDAP, databases or whatever, depending
-where your identity data is located.
 
 JBoss AS/EAP SSL Configuration
------------------------------------
+------------------------------
 
+You now have to build first the keystores your server will reference to.
+ 
 The next steps require that you are able to execute the Java Keytool. You also need to make sure all commands are executed inside the following directory in your
 *JBoss Enterprise Application Platform 6* or *WildFly* installation:
 
@@ -173,7 +116,8 @@ Now we need to export the client's certificate and create a truststore by import
     keytool -import -file client.cer -alias client -keystore client.truststore
 
 Now that we have our certificates/keystores properly configured, you need to change your server installation to enable ssl.
-Add the following connector to the web subsystem:
+
+for *JBoss Enterprise Application Platform 6* add the following connector in the web subsystem:
 
     <connector name="https" protocol="HTTP/1.1" scheme="https" socket-binding="https" enable-lookups="false" secure="true">
         <ssl name="localhost-ssl" key-alias="server" password="change_it"
@@ -183,11 +127,88 @@ Add the following connector to the web subsystem:
             ca-certificate-file="${jboss.server.config.dir}/client.truststore"/>
     </connector>
 
+for *WildFly*, add a security-realm
+  
+    <security-realm name="UndertowRealm">
+        <server-identities>
+            <ssl>
+                <keystore path="server.keystore" relative-to="jboss.server.config.dir" keystore-password="change_it"/>
+            </ssl>
+        </server-identities>
+        <authentication>
+            <truststore path="client.truststore" relative-to="jboss.server.config.dir" keystore-password="change_it"/>
+        </authentication>
+    </security-realm>
+
+then a https listener in the undertow subsystem:
+
+    <https-listener name="https" socket-binding="https" security-realm="UndertowRealm" verify-client="REQUIRED"/>
+
 You can now restart your server and check if it is responding on:
 
     https://localhost:8443
 
 If everything is ok, you will be asked to trust the server certificate.
+
+
+Create the Security Domain
+--------------------------
+
+These steps assume you are running the server in standalone mode and using the default standalone.xml supplied with the distribution.
+
+You configure the security domain by running JBoss CLI commands. For your convenience, this quickstart batches the commands into a `configure-security-domain.cli` script provided in the root directory of this quickstart.
+
+1. Before you begin, back up your server configuration file
+    * If it is running, stop the JBoss server.
+    * Backup the file: `JBOSS_HOME/standalone/configuration/standalone.xml`
+    * After you have completed testing this quickstart, you can replace this file to restore the server to its original configuration.
+
+2. Start the JBoss server by typing the following:
+
+        For Linux:  JBOSS_HOME/bin/standalone.sh
+        For Windows:  JBOSS_HOME\bin\standalone.bat
+3. Review the `configure-security-domain.cli` file in the root of this quickstart directory. This script adds the `idp` domain to the `security` subsystem in the server configuration and configures authentication access. Comments in the script describe the purpose of each block of commands.
+
+4. Open a new command prompt, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server:
+
+        JBOSS_HOME/bin/jboss-cli.sh --connect --file=configure-security-domain.cli
+You should see the following result when you run the script:
+
+        The batch executed successfully
+        {
+            "outcome" => "success",
+        }
+
+
+Review the Modified Server Configuration
+----------------------------------------
+
+If you want to review and understand newly added XML configuration, stop the JBoss server and open the  `JBOSS_HOME/standalone/configuration/standalone.xml` file.
+
+The following `idp` security-domain was added to the `security` subsystem.
+
+        <security-domain name="idp" cache-type="default">
+            <authentication>
+                <login-module code="CertificateRoles" flag="optional">
+                    <module-option name="password-stacking" value="useFirstPass"/>
+                    <module-option name="securityDomain" value="idp"/>
+                    <module-option name="verifier" value="org.jboss.security.auth.certs.AnyCertVerifier"/>
+                </login-module>
+                <login-module code="UsersRoles" flag="required">
+                    <module-option name="password-stacking" value="useFirstPass"/>
+                    <module-option name="usersProperties" value="users.properties"/>
+                    <module-option name="rolesProperties" value="roles.properties"/>
+                </login-module>
+            </authentication>
+            <jsse keystore-password="change_it" keystore-url="jboss.server.config.dir/server.keystore" truststore-password="change_it" truststore-url="jboss.server.config.dir/server.keystore" client-auth="true"/>
+        </security-domain>
+
+The configuration above defines a security-domain which will be used by the IdP to authenticate users. This is a very simple configuration,
+using a JAAS LoginModule that reads users and their corresponding roles from properties files. Both properties files, *users.properties*
+and *roles.properties* are located at *src/main/resources* directory.
+
+In a real world scenario your users and roles will not be located in properties files, but in LDAP, databases or whatever, depending
+where your identity data is located.
 
 Configure the client certificate in your browser
 -----------------------------------
@@ -246,7 +267,7 @@ _NOTE: The following build command assumes you have configured your Maven user s
 Access the application
 ---------------------
 
-The application will be running at the following URL: <http://localhost:8080/idp-ssl>.
+The application will be running at the following URL: <https://localhost:8443/idp-ssl>.
 
 The IdP is pre-configured with a default user, whose credentials are:
 
