@@ -20,6 +20,7 @@ import org.picketlink.idm.IdentityManager;
 import org.picketlink.idm.PartitionManager;
 import org.picketlink.idm.RelationshipManager;
 import org.picketlink.idm.credential.Password;
+import org.picketlink.idm.model.Attribute;
 import org.picketlink.idm.model.basic.Group;
 import org.picketlink.idm.model.basic.Role;
 import org.picketlink.idm.model.basic.User;
@@ -58,6 +59,10 @@ public class SecurityInitializer {
 
         identityManager.add(john);
         identityManager.updateCredential(john, new Password("demo"));
+
+        john.setAttribute(new Attribute<String>("Question1Answer", "Gum"));
+
+        identityManager.update(john);
 
         // Create user mary
         User mary = new User("mary");
