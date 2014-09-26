@@ -27,8 +27,6 @@ public class AccountService {
     @Path("enableAccount")
     @Produces(MediaType.APPLICATION_JSON)
     public Response enable(Person passedUser) {
-        MessageBuilder message;
-
         MyUser user = this.identityModelManager.findByLoginName(passedUser.getEmail());
 
         if (user == null) {
@@ -48,8 +46,6 @@ public class AccountService {
     @Path("disableAccount")
     @Produces(MediaType.APPLICATION_JSON)
     public Response disable(Person passedUser) {
-        MessageBuilder message;
-
         MyUser user = this.identityModelManager.findByLoginName(passedUser.getEmail());
 
         if (user == null) {
