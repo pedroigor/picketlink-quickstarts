@@ -50,9 +50,13 @@ public class HttpSecurityConfiguration {
                             .loginPage("/login.jsf")
                             .errorPage("/error.jsf")
                             .restoreOriginalRequest()
-                .forPath("/logout")
+                .forPath("/logout.jsf")
                     .logout()
-                    .redirectTo("/index.html");
+                    .redirectTo("/home.jsf")
+                .forPath("/home.jsf")
+                    .unprotected()
+                .forPath("/login")
+                .unprotected();
     }
 
 }

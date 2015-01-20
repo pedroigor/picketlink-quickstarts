@@ -71,6 +71,16 @@
   </dependencyManagement>
 
   <dependencies>
+      <dependency>
+          <groupId>org.ocpsoft.rewrite</groupId>
+          <artifactId>rewrite-servlet</artifactId>
+          <version>2.0.12.Final</version>
+      </dependency>
+      <dependency>
+          <groupId>org.ocpsoft.rewrite</groupId>
+          <artifactId>rewrite-integration-faces</artifactId>
+          <version>2.0.12.Final</version>
+      </dependency>
     <!--
         PicketLink Uber Dependency. It provides all PicketLink dependencies from a single JAR. You still can define each module separately,
         if you want to.
@@ -104,6 +114,12 @@
       <artifactId>jboss-jsf-api_2.1_spec</artifactId>
       <scope>provided</scope>
     </dependency>
+      <dependency>
+          <groupId>org.jboss.spec.javax.servlet</groupId>
+          <artifactId>jboss-servlet-api_3.1_spec</artifactId>
+          <version>1.0.0.Final</version>
+          <scope>provided</scope>
+      </dependency>
   </dependencies>
 
   <build>

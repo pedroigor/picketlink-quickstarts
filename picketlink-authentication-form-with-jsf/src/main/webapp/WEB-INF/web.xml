@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+
+
+    <filter>
+        <filter-name>PicketLink Security Filter</filter-name>
+        <filter-class>org.picketlink.http.internal.SecurityFilter</filter-class>
+        <async-supported>true</async-supported>
+    </filter>
+    <filter>
+        <filter-name>OCPsoft Rewrite Filter</filter-name>
+        <filter-class>org.ocpsoft.rewrite.servlet.RewriteFilter</filter-class>
+        <async-supported>true</async-supported>
+    </filter>
+    
+    <filter-mapping>
+        <filter-name>OCPsoft Rewrite Filter</filter-name>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>FORWARD</dispatcher>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>INCLUDE</dispatcher>
+        <dispatcher>ASYNC</dispatcher>
+        <dispatcher>ERROR</dispatcher>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>PicketLink Security Filter</filter-name>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>FORWARD</dispatcher>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>INCLUDE</dispatcher>
+        <dispatcher>ASYNC</dispatcher>
+        <dispatcher>ERROR</dispatcher>
+    </filter-mapping>
+
+
+</web-app>
