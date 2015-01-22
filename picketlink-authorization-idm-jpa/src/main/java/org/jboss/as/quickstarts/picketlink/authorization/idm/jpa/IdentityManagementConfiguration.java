@@ -18,33 +18,91 @@ package org.jboss.as.quickstarts.picketlink.authorization.idm.jpa;
 
 import org.picketlink.idm.config.IdentityConfiguration;
 import org.picketlink.idm.config.IdentityConfigurationBuilder;
+import org.picketlink.idm.model.basic.Agent;
+import org.picketlink.idm.model.basic.Grant;
+import org.picketlink.idm.model.basic.Group;
+import org.picketlink.idm.model.basic.GroupMembership;
+import org.picketlink.idm.model.basic.Role;
+import org.picketlink.idm.model.basic.User;
 
 import javax.enterprise.inject.Produces;
 
+import static org.picketlink.common.constants.LDAPConstants.CN;
+import static org.picketlink.common.constants.LDAPConstants.CREATE_TIMESTAMP;
+import static org.picketlink.common.constants.LDAPConstants.EMAIL;
+import static org.picketlink.common.constants.LDAPConstants.GROUP_OF_NAMES;
+import static org.picketlink.common.constants.LDAPConstants.SN;
+import static org.picketlink.common.constants.LDAPConstants.UID;
+
 /**
  * This bean produces the configuration for PicketLink IDM
- * 
- * 
+ *
+ *
  * @author Shane Bryzak
  *
  */
 public class IdentityManagementConfiguration {
 
+    private static final String BASE_DN = "dc=jboss,dc=org";
+    private static final String LDAP_URL = "ldap://localhost:10389";
+    private static final String ROLES_DN_SUFFIX = "ou=Roles,dc=jboss,dc=org";
+    private static final String GROUP_DN_SUFFIX = "ou=Groups,dc=jboss,dc=org";
+    private static final String USER_DN_SUFFIX = "ou=People,dc=jboss,dc=org";
+    private static final String AGENT_DN_SUFFIX = "ou=Agent,dc=jboss,dc=org";
+
+
     /**
-     * This method uses the IdentityConfigurationBuilder to create an IdentityConfiguration, which
-     * defines how PicketLink stores identity-related data.  In this particular example, a
-     * JPAIdentityStore is configured to allow the identity data to be stored in a relational database
-     * using JPA.
+     * <p>
+     *     We use this method to produce a {@link IdentityConfiguration} configured with a LDAP store.
+     * </p>
+     *
+     * @return
      */
-    @Produces IdentityConfiguration produceIdentityManagementConfiguration() {
+    @Produces
+    public IdentityConfiguration configure() {
         IdentityConfigurationBuilder builder = new IdentityConfigurationBuilder();
 
+
         builder
-            .named("default")
-            .stores()
-            .jpa()
-                // Specify that this identity store configuration supports all features
-            .supportAllFeatures();
+                .named("default")
+                .stores()
+                .jpa()
+                .supportCredentials(false)
+                .supportGlobalRelationship(Grant.class)
+                .supportAttributes(true)
+                .supportType(Role.class)
+                .ldap()
+                .baseDN(BASE_DN)
+                .bindDN("uid=admin,ou=system")
+                .bindCredential("secret")
+                .url(LDAP_URL)
+                .supportCredentials(true)
+                .supportType(Agent.class, User.class, Group.class)
+                .supportGlobalRelationship(GroupMembership.class)
+                .mapping(Agent.class)
+                .baseDN(AGENT_DN_SUFFIX)
+                .objectClasses("account")
+                .attribute("loginName", UID, true)
+                .readOnlyAttribute("createdDate", CREATE_TIMESTAMP)
+                .mapping(User.class)
+                .baseDN(USER_DN_SUFFIX)
+                .objectClasses("inetOrgPerson", "organizationalPerson")
+                .attribute("loginName", UID, true)
+                .attribute("firstName", CN)
+                .attribute("lastName", SN)
+                .attribute("email", EMAIL)
+                .readOnlyAttribute("createdDate", CREATE_TIMESTAMP)
+                .mapping(Group.class)
+                .baseDN(GROUP_DN_SUFFIX)
+                .objectClasses(GROUP_OF_NAMES)
+                .attribute("name", CN, true)
+                .readOnlyAttribute("createdDate", CREATE_TIMESTAMP)
+                .parentMembershipAttributeName("member")
+                .parentMapping("QA Group", "ou=QA,dc=jboss,dc=org")
+                .mapping(GroupMembership.class)
+                .forMapping(Group.class)
+                .attribute("member", "member");
+
 
         return builder.build();
     }

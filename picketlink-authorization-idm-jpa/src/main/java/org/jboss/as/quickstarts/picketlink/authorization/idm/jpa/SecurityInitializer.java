@@ -35,7 +35,7 @@ import static org.picketlink.idm.model.basic.BasicModel.grantRole;
 
 /**
  * This startup bean creates a number of default users, groups and roles when the application is started.
- * 
+ *
  * @author Shane Bryzak
  */
 @Singleton
@@ -49,10 +49,10 @@ public class SecurityInitializer {
     public void create() {
 
         // Create user john
-        User john = new User("john");
-        john.setEmail("john@acme.com");
-        john.setFirstName("John");
-        john.setLastName("Smith");
+        User john = new User("pedro");
+        john.setEmail("pedro@picketlink.com");
+        john.setFirstName("Pedro");
+        john.setLastName("Igor");
 
         IdentityManager identityManager = this.partitionManager.createIdentityManager();
 
