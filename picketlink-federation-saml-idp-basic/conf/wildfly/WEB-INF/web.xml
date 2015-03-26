@@ -11,17 +11,6 @@
 		<listener-class>org.picketlink.identity.federation.web.listeners.IDPHttpSessionListener</listener-class>
 	</listener>
 
-    <!-- The IDPFilter is responsible for enabling all SAML processing. -->
-    <filter>
-        <filter-name>IDPFilter</filter-name>
-        <filter-class>org.picketlink.identity.federation.web.filters.IDPFilter</filter-class>
-    </filter>
-
-    <filter-mapping>
-        <filter-name>IDPFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
-    
 	<!-- Define a security constraint that gives unlimited access to some static resources. -->
 	<security-constraint>
 		<web-resource-collection>

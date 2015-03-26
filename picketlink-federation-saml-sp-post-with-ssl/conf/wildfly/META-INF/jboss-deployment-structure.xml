@@ -1,9 +1,8 @@
 <jboss-deployment-structure>
     <deployment>
-        <!-- You must configure the PicketLink dependency to your deployment. The dependency above is a reference to a static module
-        from JBoss EAP modules directory. -->
         <dependencies>
-            <module name="org.picketlink"/>
+            <!-- You need to declare this module as a dependency in order to enable PicketLink to your deployment. -->
+            <module name="org.picketlink" services="import" />
         </dependencies>
     </deployment>
 </jboss-deployment-structure>

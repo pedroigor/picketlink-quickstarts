@@ -31,7 +31,7 @@ import java.io.IOException;
 /**
  * @author Pedro Igor
  */
-@WebServlet ("/servlet")
+@WebServlet ("/authenticate")
 public class AuthenticationServlet extends HttpServlet {
 
     @Override

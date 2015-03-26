@@ -21,7 +21,8 @@
     <%
         if (request.getUserPrincipal() == null) {
     %>
-        <form method="post" action="<%= request.getContextPath() %>/servlet">
+        <form method="post" action="<%= request.getContextPath() %>/authenticate">
+            <p>Default user is john/john.</p>
             Username: <input type="text" name="username"/><br/>
             Password: <input type="password" name="password"/>
             <br/>
