@@ -36,6 +36,10 @@
         <class>org.picketlink.quickstart.identitymodel.entity.AbstractIdentityTypeEntity</class>
         <class>org.picketlink.quickstart.identitymodel.entity.RelationshipTypeEntity</class>
         <class>org.picketlink.quickstart.identitymodel.entity.RelationshipIdentityTypeEntity</class>
+        <class>org.picketlink.quickstart.zanata.entity.HAccount</class>
+        <class>org.picketlink.quickstart.zanata.entity.HAccountRole</class>
+        <class>org.picketlink.quickstart.zanata.entity.HPerson</class>
+        <class>org.picketlink.quickstart.zanata.entity.ModelEntityBase</class>
 
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
 
