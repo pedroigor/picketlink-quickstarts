@@ -62,14 +62,14 @@ public class HAccount implements Serializable {
     private HPerson person;
 
     @Identifier
-    @Id
     private String internalId;
 
     @IdentityClass
     private String typeName;
-    private Date lastChanged;
-    private Date creationDate;
+    private Date lastChanged = new Date();
+    private Date creationDate = new Date();
 
+    @Id
     public String getInternalId() {
         return internalId;
     }
@@ -87,6 +87,7 @@ public class HAccount implements Serializable {
     }
 
     @OneToOne(mappedBy = "account", cascade = CascadeType.ALL)
+    @AttributeValue
     public HPerson getPerson() {
         return person;
     }
@@ -129,7 +130,7 @@ public class HAccount implements Serializable {
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
-    @AttributeValue
+    @AttributeValue(name = "createdDate")
     public Date getCreationDate() {
         return creationDate;
     }
@@ -139,7 +140,7 @@ public class HAccount implements Serializable {
     }
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(nullable = false)
+    @Column(nullable = true)
     @AttributeValue
     public Date getLastChanged() {
         return lastChanged;

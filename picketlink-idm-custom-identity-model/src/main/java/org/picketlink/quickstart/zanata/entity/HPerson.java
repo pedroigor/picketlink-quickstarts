@@ -43,7 +43,7 @@ public class HPerson extends ModelEntityBase implements Serializable {
     }
 
     @OneToOne(optional = true, fetch = FetchType.EAGER)
-    @JoinColumn(name = "accountId")
+    @JoinColumn(name = "internalId")
     public HAccount getAccount() {
         return account;
     }

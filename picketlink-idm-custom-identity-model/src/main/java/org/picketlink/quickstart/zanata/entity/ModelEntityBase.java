@@ -65,7 +65,7 @@ public class ModelEntityBase implements Serializable/*, HashableState*/ {
     }
 
     @Version
-    @Column(nullable = false)
+    @Column(nullable = true)
     public Integer getVersionNum() {
         return versionNum;
     }
@@ -75,7 +75,7 @@ public class ModelEntityBase implements Serializable/*, HashableState*/ {
     }
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(nullable = false)
+    @Column(nullable = true)
     public Date getCreationDate() {
         return creationDate;
     }
@@ -85,7 +85,7 @@ public class ModelEntityBase implements Serializable/*, HashableState*/ {
     }
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(nullable = false)
+    @Column(nullable = true)
     public Date getLastChanged() {
         return lastChanged;
     }
