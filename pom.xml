@@ -20,7 +20,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.picketlink.quickstarts</groupId>
     <artifactId>picketlink-quickstarts-parent</artifactId>
-    <version>2.8.0.Beta1-SNAPSHOT</version>
+    <version>2.5.4.SP7</version>
 
     <packaging>pom</packaging>
 
@@ -38,28 +38,28 @@
     </licenses>
 
     <modules>
-        <module>picketlink-authentication-form</module>
-        <module>picketlink-authentication-form-with-jsf</module>
-        <module>picketlink-authentication-http-basic</module>
-        <module>picketlink-authentication-http-client-cert</module>
-        <module>picketlink-authentication-http-digest</module>
-        <module>picketlink-authentication-idm-jsf</module>
-        <module>picketlink-authentication-idm-multi-tenancy</module>
-        <module>picketlink-authentication-jsf</module>
-        <module>picketlink-authentication-recaptcha</module>
-        <module>picketlink-authentication-rs-endpoint</module>
-        <module>picketlink-authentication-two-factor</module>
-        <module>picketlink-authentication-security-level</module>
-        <module>picketlink-levels-complex</module>
-        <module>picketlink-authorization-idm-jpa</module>
-        <module>picketlink-authorization-idm-ldap</module>
-        <module>picketlink-authorization-rs-rbac</module>
-        <module>picketlink-deltaspike-authorization</module>
-        <module>picketlink-angularjs-rest</module>
-        <module>picketlink-idm-custom-identity-model</module>
-        <module>picketlink-http-servlet-integration</module>
-        <module>picketlink-authorization-acl</module>
-        <module>picketlink-events</module>
+        <!--<module>picketlink-authentication-form</module>-->
+        <!--<module>picketlink-authentication-form-with-jsf</module>-->
+        <!--<module>picketlink-authentication-http-basic</module>-->
+        <!--<module>picketlink-authentication-http-client-cert</module>-->
+        <!--<module>picketlink-authentication-http-digest</module>-->
+        <!--<module>picketlink-authentication-idm-jsf</module>-->
+        <!--<module>picketlink-authentication-idm-multi-tenancy</module>-->
+        <!--<module>picketlink-authentication-jsf</module>-->
+        <!--<module>picketlink-authentication-recaptcha</module>-->
+        <!--<module>picketlink-authentication-rs-endpoint</module>-->
+        <!--<module>picketlink-authentication-two-factor</module>-->
+        <!--<module>picketlink-authentication-security-level</module>-->
+        <!--<module>picketlink-levels-complex</module>-->
+        <!--<module>picketlink-authorization-idm-jpa</module>-->
+        <!--<module>picketlink-authorization-idm-ldap</module>-->
+        <!--<module>picketlink-authorization-rs-rbac</module>-->
+        <!--<module>picketlink-deltaspike-authorization</module>-->
+        <!--<module>picketlink-angularjs-rest</module>-->
+        <!--<module>picketlink-idm-custom-identity-model</module>-->
+        <!--<module>picketlink-http-servlet-integration</module>-->
+        <!--<module>picketlink-authorization-acl</module>-->
+        <!--<module>picketlink-events</module>-->
 
         <module>picketlink-federation-saml-idp-basic</module>
         <module>picketlink-federation-saml-idp-with-signature</module>
